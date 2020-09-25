@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/socket-client/static/css/main.5f361e03.chunk.css",
+    "main.js": "/socket-client/static/js/main.ac1e8810.chunk.js",
+    "main.js.map": "/socket-client/static/js/main.ac1e8810.chunk.js.map",
+    "runtime-main.js": "/socket-client/static/js/runtime-main.2e81c29e.js",
+    "runtime-main.js.map": "/socket-client/static/js/runtime-main.2e81c29e.js.map",
+    "static/js/2.8f3087a4.chunk.js": "/socket-client/static/js/2.8f3087a4.chunk.js",
+    "static/js/2.8f3087a4.chunk.js.map": "/socket-client/static/js/2.8f3087a4.chunk.js.map",
+    "index.html": "/socket-client/index.html",
+    "precache-manifest.513755fb430a2bda70b7290e088b08d5.js": "/socket-client/precache-manifest.513755fb430a2bda70b7290e088b08d5.js",
+    "service-worker.js": "/socket-client/service-worker.js",
+    "static/css/main.5f361e03.chunk.css.map": "/socket-client/static/css/main.5f361e03.chunk.css.map",
+    "static/js/2.8f3087a4.chunk.js.LICENSE.txt": "/socket-client/static/js/2.8f3087a4.chunk.js.LICENSE.txt",
+    "static/media/logo.svg": "/socket-client/static/media/logo.5d5d9eef.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.2e81c29e.js",
+    "static/js/2.8f3087a4.chunk.js",
+    "static/css/main.5f361e03.chunk.css",
+    "static/js/main.ac1e8810.chunk.js"
+  ]
+}
