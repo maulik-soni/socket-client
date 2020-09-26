@@ -1,48 +1,119 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useEffect, useState } from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import useScrollTrigger from '@material-ui/core/useScrollTrigger';
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
+import {useLocation} from "react-router-dom";
+import IconButton from '@material-ui/core/IconButton';
+import MenuIcon from '@material-ui/icons/Menu';
+import { makeStyles } from '@material-ui/core/styles';
+import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import { useHistory } from "react-router-dom";
 
-function ElevationScroll(props) {
-  const { children, window } = props;
-  const trigger = useScrollTrigger({
-    disableHysteresis: true,
-    threshold: 0,
-    target: window ? window() : undefined,
-  });
 
-  return React.cloneElement(children, {
-    elevation: trigger ? 4 : 0,
-  });
+const setTitle=(pathName)=>{
+  switch(pathName){
+    case "/home" : return "Home"
+    case "/live" : return "Live Chart"
+    default : return "Home"
+  }
 }
 
-ElevationScroll.propTypes = {
-  children: PropTypes.element.isRequired,
-  window: PropTypes.func,
-};
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+  },
+  menuButton: {
+    marginRight: theme.spacing(2),
+  },
+  main:{
+    marginTop: theme.spacing(8),
+  },
+  list: {
+    width: 250,
+  },
+  fullList: {
+    width: 'auto',
+  },
+}));
 
-export default function ElevateAppBar(props) {
+export default function Navbar(props) {
+  const classes = useStyles();
+  let history = useHistory();
+
+  const location = useLocation();
+  const [navTitle, setNavTitle] = useState('');
+
+  const [state, setState] = React.useState({
+    top: false,
+    left: false,
+    bottom: false,
+    right: false,
+  });
+
+  const toggleDrawer = (anchor, open) => (event) => {
+    if (event && event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+      return;
+    }
+
+    setState({ ...state, [anchor]: open });
+  };
+
+  useEffect(() => {
+    setNavTitle(setTitle(location.pathname));
+  }, [location]);
+
+  const list = () => (
+    <div
+      className={classes.list}
+      role="presentation"
+      onClick={toggleDrawer('left', false)}
+      onKeyDown={toggleDrawer('left', false)}
+    >
+      <List>
+        <ListItem button onClick={()=>{history.push("/home");}}>
+          <ListItemText primary={"Home"} />
+        </ListItem>
+        <ListItem button onClick={()=>{history.push("/live");}}>
+          <ListItemText primary={"Live Chart"} />
+        </ListItem>
+      </List>
+    </div>
+  );
+
   return (
     <>
-      <CssBaseline />
-      <ElevationScroll {...props}>
-        <AppBar>
-          <Toolbar>
-            <Typography variant="h6">Scroll to Elevate App Bar</Typography>
+      <div className={classes.root}>
+        <AppBar position="fixed">
+          <Toolbar variant="dense">
+            <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu" onClick={toggleDrawer('left', true)}>
+              <MenuIcon />
+            </IconButton>
+            <Typography variant="h6" color="inherit">
+              {navTitle}
+            </Typography>
           </Toolbar>
         </AppBar>
-      </ElevationScroll>
-      <Toolbar />
-      <Container>
-        <Box my={2}>
-          {props.children}
-        </Box>
-      </Container>
+        <SwipeableDrawer
+            anchor={"left"}
+            open={state["left"]}
+            onClose={toggleDrawer("left", false)}
+            onOpen={toggleDrawer("left", true)}
+          >
+            {list("left")}
+          </SwipeableDrawer>
+      </div>
+      <main className={classes.main}>
+        <Container>
+          <Box my={1}>
+            {props.children}
+          </Box>
+        </Container>
+      </main>
     </>
   );
 }

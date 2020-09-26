@@ -38,7 +38,7 @@ export default function DataTable({data}) {
         </TableHead>
         <TableBody>
           {data.map((row, index) => (
-            <TableRow key={index} className={(+row.close > +row.open ? classes.green : classes.red)}>
+            <TableRow key={index} className={(+row.close < +row.open ? classes.green : classes.red)}>
               <TableCell component="th" scope="row">
                 {new Date(row.date).toLocaleDateString()}
               </TableCell>
