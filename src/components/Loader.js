@@ -20,7 +20,7 @@ export default function Loader(){
 
   return (
     <Paper variant="outlined" elevation={0} className={classes.root}>
-      <img alt="loader" src="loader.gif" width="350"/>
+      <img alt="loader" src="/socket-client/loader.gif" width="350"/>
     </Paper>
   );
 }
