@@ -1,5 +1,4 @@
 import io from 'socket.io-client';
-import { parseData } from './utils';
 const ENDPOINT = "http://kaboom.rksv.net/watch";
 
 class ClientSocket{
@@ -11,16 +10,18 @@ class ClientSocket{
   }
 
   listenToSocket(callBack){
-    const chartData = [];
     this.socket.on("data", (response, acknowledge) => {
-      chartData.push(new parseData(response));
-      callBack(chartData);
+      callBack(response);
       acknowledge(1);
     });
   }
 
   unsubscribe(){
     this.socket.emit("unsub", {state: !!0});
+  }
+
+  onError(callBack){
+    this.socket.on("error", callBack);
   }
 }
 
