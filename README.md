@@ -25,6 +25,9 @@ src/
     index.js
 package.json
 ```
+## Screenshots 
+![](https://raw.githubusercontent.com/maulik-soni/socket-client/master/public/Screenshot%202020-09-28%20at%204.32.44%20AM.png)
+![](https://github.com/maulik-soni/socket-client/blob/master/public/Screenshot%202020-09-28%20at%204.32.27%20AM.png)
 
 ## Available Scripts
 In the project directory, you can run:
