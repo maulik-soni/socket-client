@@ -4,10 +4,7 @@ import ReactDOM from 'react-dom';
 import * as serviceWorker from './serviceWorker';
 import Routing from './components/Routing';
 
-ReactDOM.render(
-  <React.StrictMode>
-    <Routing/>
-  </React.StrictMode>,
+ReactDOM.render(<Routing/>,
   document.getElementById('root')
 );
 
