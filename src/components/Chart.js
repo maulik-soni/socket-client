@@ -35,7 +35,7 @@ class OHLCChartWithElderRayIndicator extends React.Component {
 
 		const calculatedData = changeCalculator(elder(initialData));
 		const xScaleProvider = discontinuousTimeScaleProvider
-			.inputDateAccessor(d => d.date);
+			.inputDateAccessor(d => {return new Date(d.date)});
 		const {
 			data,
 			xScale,

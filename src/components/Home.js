@@ -5,6 +5,7 @@ import DataTable from './DataTable';
 import { makeStyles } from '@material-ui/core/styles';
 import { getData } from '../common/utils';
 import { Paper, FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
+import { Alert } from '@material-ui/lab';
 
 const useStyles = makeStyles((theme) => ({
   formControlWrapper:{
@@ -14,17 +15,25 @@ const useStyles = makeStyles((theme) => ({
   formControl: {
     margin: theme.spacing(1),
     minWidth: 120,
+  },
+  alert:{
+    marginBottom: theme.spacing(2),
   }
 }));
 
 const fetchChartData = async (callBack, interval=1) => {
   const data = await getData(interval);
+  window.localStorage.setItem("homeChartData", JSON.stringify(data));
   callBack(data);
 }
 
-const Home = (props) =>{
-  const [data, setData] = useState(null); 
+const Home = () =>{
   const classes = useStyles();
+
+  const {onLine} = navigator;
+  const [data, setData] = useState(
+    onLine ? null : JSON.parse(window.localStorage.getItem("homeChartData"))
+  ); 
   const [limit, setLimit] = React.useState(1);
 
   const handleChange = (event) => {
@@ -38,7 +47,10 @@ const Home = (props) =>{
   }, []);
 
   return(
-      data ? 
+    <>
+      {!onLine && <Alert severity="error" className={classes.alert}>Something went wrong with Network!!!</Alert>}
+      {
+        data ? 
         <>
           <Paper variant="outlined" elevation={0}>
             <Chart data={data} />
@@ -66,6 +78,8 @@ const Home = (props) =>{
           <DataTable data={[...data].reverse()}/>
         </>
         : <Loader/>
+      }
+    </>
   );
 }
 
